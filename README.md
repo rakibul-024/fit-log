@@ -1,43 +1,60 @@
-# FitLog
+# FITLOG
 
-**A focused workout library and daily planner.** Find a lift, check its instructions, and keep track of what you plan to do today.
+### Train with intent. Log every set.
+
+FitLog is a responsive workout library and daily planner for finding your next lift, checking how to do it, and organizing the session ahead. Browse exercise details, build a plan of up to five workouts, and keep useful lifts saved for later.
+
+---
+
+## At a glance
+
+- **Workout library** — Browse 12 exercises with images, muscle groups, equipment, duration, calories, and ratings.
+- **Exercise details** — Check difficulty, sets, reps, and step-by-step instructions before training.
+- **Today's plan** — Add up to five lifts, mark them done, and see exercise, time, and calorie totals update.
+- **Saved workouts** — Keep exercises for later and manage them from the My Plan page.
+- **Search and sort** — Find workouts by name or muscle group; sort by duration, calories, or rating.
+- **Responsive layout** — Use the library and planner on mobile, tablet, or desktop.
+- **Helpful feedback** — Toast notifications confirm actions, and loading, not-found, and error states guide the way.
+- **Ready when the API isn't** — A built-in workout list keeps the library and exercise pages available when the live API is unavailable.
 
 ## Built with
 
-- Next.js 16 App Router and React 19
-- Tailwind CSS 4 and DaisyUI
-- Lucide React icons
-- React Toastify notifications
-- [FitLog Workout API](https://api.abcz.workers.dev/api/fitlog)
-- React Context for the current workout plan
-- Built-in workout data that keeps the library available when the API is down
+| Technology | Purpose |
+| --- | --- |
+| [Next.js 16](https://nextjs.org/) and [React 19](https://react.dev/) | App framework, routing, and interactive UI |
+| [Tailwind CSS 4](https://tailwindcss.com/) and [DaisyUI](https://daisyui.com/) | Responsive styling |
+| [Lucide React](https://lucide.dev/) | Interface icons |
+| [React Toastify](https://fkhadra.github.io/react-toastify/) | Action notifications |
+| [FitLog Workout API](https://api.abcz.workers.dev/api/fitlog) | Live workout data |
+| React Context | Shared plan and saved-workout state |
 
-## What you can do
+## Get started
 
-1. Browse a responsive library of workouts and view their equipment, stats, and instructions.
-2. Add up to five exercises to today's plan or save workouts for later.
-3. Track completed workouts and see live totals for exercises, minutes, and calories.
-4. Search workouts by name or muscle group, and sort them by duration, calories, or rating.
-5. See plan and saved-workout counts update as you add or remove exercises.
-6. Get clear feedback when an action succeeds or needs attention, with loading and not-found pages.
-7. Keep browsing and viewing workout details when the live API is unavailable.
-
-## Run locally
-
-Install dependencies and start the development server:
+You'll need Node.js and npm installed.
 
 ```bash
+# Install dependencies
 npm install
+
+# Start the development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-The workout plan is held in React state and resets when the page is refreshed.
-
-## Production build
+## Useful commands
 
 ```bash
-npm run build
-npm run start
+npm run lint   # Check the code
+npm run build  # Create a production build
+npm run start  # Serve the production build
 ```
+
+## Project notes
+
+- Plan, saved, and completed workout state is held in React Context and resets when the page is refreshed.
+- The workout library uses live API data when available and falls back to the built-in list otherwise.
+
+---
+
+**FITLOG** · Train hard, log honest.
