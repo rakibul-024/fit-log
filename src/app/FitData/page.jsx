@@ -1,8 +1,19 @@
 import FitDataCard from "../components/FitDataCard";
-import { getWorkouts } from "../lib/workouts";
 
 export default async function FitData() {
-  const data = await getWorkouts();
+  const response = await fetch("https://api.abcz.workers.dev/api/fitlog", {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Could not load workouts: ${response.status}`);
+  }
+
+  const data = await response.json();
+  if (!Array.isArray(data)) {
+    throw new Error("The workout API did not return a list of workouts.");
+  }
+
   return (
     <section
       id="library"

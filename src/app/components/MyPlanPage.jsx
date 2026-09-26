@@ -38,7 +38,6 @@ export default function MyPlanPage() {
     planned,
     saved,
     doneIds,
-    isLoaded,
     markAsDone,
     removeFromPlan,
     removeFromSaved,
@@ -145,12 +144,7 @@ export default function MyPlanPage() {
         </div>
 
         <div id="workout-list" role="tabpanel" aria-labelledby={activeTab === "planned" ? "planned-tab" : "saved-tab"}>
-          {!isLoaded ? (
-            <div className="flex min-h-48 items-center justify-center rounded-xl border border-[#242630] bg-[#111216] text-sm text-gray-400">
-              <span className="mr-2 size-4 animate-spin rounded-full border-2 border-gray-600 border-t-[#ccff00]" />
-              Loading workouts…
-            </div>
-          ) : items.length === 0 ? (
+          {items.length === 0 ? (
             <div className="flex min-h-56 flex-col items-center justify-center rounded-xl border border-dashed border-[#30323b] bg-[#0e0f12] px-5 py-12 text-center">
               <h2 className="display-heading text-lg uppercase text-white">NOTHING HERE YET</h2>
               <p className="mt-1 max-w-sm text-[11px] text-gray-400">

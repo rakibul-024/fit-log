@@ -1,12 +1,22 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import WorkoutActions from "../../components/WorkoutActions";
-import { getWorkouts } from "../../lib/workouts";
 
 export default async function FitDataDetailsPage({ params }) {
   const { fitDataId } = await params;
-  const workouts = await getWorkouts();
-  const workout = workouts.find((item) => String(item.id) === String(fitDataId));
+  const response = await fetch(
+    `https://api.abcz.workers.dev/api/fitlog/${fitDataId}`,
+    { cache: "no-store" },
+  );
+
+  if (response.status === 404) {
+    notFound();
+  }
+  if (!response.ok) {
+    throw new Error(`Could not load workout: ${response.status}`);
+  }
+
+  const workout = await response.json();
 
   if (!workout) {
     notFound();

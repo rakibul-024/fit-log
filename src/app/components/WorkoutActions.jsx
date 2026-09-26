@@ -6,7 +6,7 @@ import { useWorkoutPlan } from "./WorkoutPlanProvider";
 export default function WorkoutActions({ workout }) {
   const { planned, addToPlan, saveForLater } = useWorkoutPlan();
   const planFull = planned.length >= 5;
-  const alreadyPlanned = planned.some((item) => item.id === workout.id);
+  const alreadyPlanned = planned.some((item) => Number(item.id) === Number(workout.id));
 
   return (
     <div className="flex flex-col gap-3 pt-2 sm:flex-row">
