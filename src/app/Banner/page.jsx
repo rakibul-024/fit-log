@@ -1,11 +1,5 @@
-import React from 'react';
+import HeroBanner from "../components/HeroBanner";
 
-const page = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
-
-export default page;
+export default function BannerPage() {
+  return <HeroBanner />;
+}
