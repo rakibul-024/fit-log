@@ -10,6 +10,7 @@
 - React Toastify notifications
 - [FitLog Workout API](https://api.abcz.workers.dev/api/fitlog)
 - React Context for the current workout plan
+- Built-in workout data that keeps the library available when the API is down
 
 ## What you can do
 
@@ -19,6 +20,7 @@
 4. Search workouts by name or muscle group, and sort them by duration, calories, or rating.
 5. See plan and saved-workout counts update as you add or remove exercises.
 6. Get clear feedback when an action succeeds or needs attention, with loading and not-found pages.
+7. Keep browsing and viewing workout details when the live API is unavailable.
 
 ## Run locally
 

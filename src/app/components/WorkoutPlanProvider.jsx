@@ -32,7 +32,7 @@ export function WorkoutPlanProvider({ children }) {
   }
 
   function saveForLater(workout) {
-    if (plan.saved.some((item) => number(item.id) === number(workout.id))) {
+    if (plan.saved.some((item) => Number(item.id) === Number(workout.id))) {
       toast.info("This workout is already saved.");
       return;
     }

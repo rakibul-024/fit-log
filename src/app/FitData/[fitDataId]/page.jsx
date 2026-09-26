@@ -1,22 +1,12 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import WorkoutActions from "../../components/WorkoutActions";
+import { getWorkouts } from "../../data/workouts";
 
 export default async function FitDataDetailsPage({ params }) {
   const { fitDataId } = await params;
-  const response = await fetch(
-    `https://api.abcz.workers.dev/api/fitlog/${fitDataId}`,
-    { cache: "no-store" },
-  );
-
-  if (response.status === 404) {
-    notFound();
-  }
-  if (!response.ok) {
-    throw new Error(`Could not load workout: ${response.status}`);
-  }
-
-  const workout = await response.json();
+  const { workouts, usingFallback } = await getWorkouts();
+  const workout = workouts.find((item) => String(item.id) === String(fitDataId));
 
   if (!workout) {
     notFound();
@@ -54,6 +44,11 @@ export default async function FitDataDetailsPage({ params }) {
             <p className="mt-2 text-sm leading-6 text-gray-400">
               {workout.description}
             </p>
+            {usingFallback && (
+              <p role="status" className="mt-2 text-xs text-[#ccff00]">
+                Live workout data is unavailable. Showing built-in workout details.
+              </p>
+            )}
 
             <div className="mt-4 flex flex-wrap gap-2">
               {workout.muscleGroups.map((group) => (
