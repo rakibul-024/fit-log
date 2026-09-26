@@ -1,7 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useWorkoutPlan } from "./WorkoutPlanProvider";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const { planned, saved } = useWorkoutPlan();
+  const isWorkoutActive = pathname === "/" || pathname.startsWith("/FitData");
+  const isPlanActive = pathname === "/my-plan";
+
   return (
     <header className="w-full border-b border-[#18191e] bg-[#0a0a0c] text-white">
       <div className="container relative mx-auto grid w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 px-4 py-6 sm:px-6 md:flex md:min-h-12 md:justify-between md:gap-4 lg:px-8">
@@ -29,14 +38,29 @@ export default function Navbar() {
             >
               <Link
                 href="/"
-                aria-current="page"
-                className="rounded-md bg-[#1a2703] px-3 py-2.5 text-xs font-semibold text-[#ccff00]"
+                aria-current={isWorkoutActive ? "page" : undefined}
+                onClick={(event) => {
+                  event.currentTarget.closest("details").open = false;
+                }}
+                className={`rounded-md px-3 py-2.5 text-xs ${
+                  isWorkoutActive
+                    ? "bg-[#1a2703] font-semibold text-[#ccff00]"
+                    : "text-gray-300 hover:bg-[#1a1b20] hover:text-white"
+                }`}
               >
                 Workouts
               </Link>
               <Link
                 href="/my-plan"
-                className="rounded-md px-3 py-2.5 text-xs text-gray-300 hover:bg-[#1a1b20] hover:text-white"
+                aria-current={isPlanActive ? "page" : undefined}
+                onClick={(event) => {
+                  event.currentTarget.closest("details").open = false;
+                }}
+                className={`rounded-md px-3 py-2.5 text-xs ${
+                  isPlanActive
+                    ? "bg-[#1a2703] font-semibold text-[#ccff00]"
+                    : "text-gray-300 hover:bg-[#1a1b20] hover:text-white"
+                }`}
               >
                 My Plan
               </Link>
@@ -65,14 +89,23 @@ export default function Navbar() {
         >
           <Link
             href="/"
-            aria-current="page"
-            className="whitespace-nowrap rounded-full bg-[#1a2703] px-4 py-1.5 text-[11px] font-semibold text-[#ccff00] transition-colors sm:px-5"
+            aria-current={isWorkoutActive ? "page" : undefined}
+            className={`whitespace-nowrap rounded-full px-4 py-1.5 text-[11px] transition-colors sm:px-5 ${
+              isWorkoutActive
+                ? "bg-[#1a2703] font-semibold text-[#ccff00]"
+                : "font-medium text-gray-400 hover:text-white"
+            }`}
           >
             Workouts
           </Link>
           <Link
             href="/my-plan"
-            className="whitespace-nowrap rounded-full px-4 py-1.5 text-[11px] font-medium text-gray-400 transition-colors hover:text-white sm:px-5"
+            aria-current={isPlanActive ? "page" : undefined}
+            className={`whitespace-nowrap rounded-full px-4 py-1.5 text-[11px] transition-colors sm:px-5 ${
+              isPlanActive
+                ? "bg-[#1a2703] font-semibold text-[#ccff00]"
+                : "font-medium text-gray-400 hover:text-white"
+            }`}
           >
             My Plan
           </Link>
@@ -85,7 +118,7 @@ export default function Navbar() {
           >
             <span>Plan</span>
             <span className="flex size-4 items-center justify-center rounded-full bg-[#ccff00] text-[9px] font-black text-black">
-              0
+              {planned.length}
             </span>
           </Link>
           <Link
@@ -94,7 +127,7 @@ export default function Navbar() {
           >
             <span>Saved</span>
             <span className="flex size-4 items-center justify-center rounded-full border border-[#41434b] text-[9px] text-white">
-              0
+              {saved.length}
             </span>
           </Link>
         </div>

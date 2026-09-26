@@ -1,53 +1,33 @@
-import React from 'react';
-import FitDataCard from '../components/FitDataCard';
+import FitDataCard from "../components/FitDataCard";
+import { getWorkouts } from "../lib/workouts";
 
-const fitData = async () => {
-  try {
-    const response = await fetch('https://api.abcz.workers.dev/api/fitlog', {
-      cache: 'no-store'
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Data Fetching Error:", error);
-    return [];
-  }
-};
-
-const Page = async () => {
-  const data = await fitData();
-
+export default async function FitData() {
+  const data = await getWorkouts();
   return (
-    <main className="min-h-screen bg-[#0a0a0c] text-white p-6 md:p-12">
-      <div className="max-w-7xl mx-auto">
-    
+    <section
+      id="library"
+      aria-labelledby="library-heading"
+      className="scroll-mt-6 px-4 pb-12 pt-4 text-white sm:px-6 lg:px-8 lg:pb-16"
+    >
+      <div className="container mx-auto max-w-7xl">
         <div className="mb-8">
-          <h1 className="text-2xl font-black tracking-wider uppercase text-white">
+          <h2
+            id="library-heading"
+            className="text-2xl font-black uppercase tracking-wider text-white"
+          >
             THE LIBRARY
-          </h1>
-          <p className="text-gray-400 text-sm mt-1">
+          </h2>
+          <p className="mt-1 text-sm text-gray-400">
             Twelve lifts covering every major muscle group.
           </p>
         </div>
 
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data && data.length > 0 ? (
-            data.map((item) => (
-              <FitDataCard key={item.id} item={item} />
-            ))
-          ) : (
-            <p className="text-gray-500 col-span-full">No exercise data available.</p>
-          )}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {data.map((item) => (
+            <FitDataCard key={item.id} item={item} />
+          ))}
         </div>
       </div>
-    </main>
+    </section>
   );
-};
-
-export default Page;
+}
