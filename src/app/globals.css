@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@import "react-toastify/dist/ReactToastify.css";
 
 :root {
   --background: #0a0a0c;
@@ -26,4 +27,31 @@ html {
 .display-heading {
   font-family: Impact, "Arial Narrow", sans-serif;
   font-stretch: condensed;
+}
+
+.fitlog-toast {
+  min-height: 3.25rem;
+  border: 1px solid #343740;
+  border-radius: 0.75rem;
+  background: #17191f;
+  color: #ededed;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.35);
+}
+
+.Toastify__progress-bar--success {
+  background: #ccff00;
+}
+
+.Toastify__progress-bar--info {
+  background: #8a8f9d;
+}
+
+.Toastify__progress-bar--warning {
+  background: #eab308;
+}
+
+.Toastify__progress-bar--error {
+  background: #ef4444;
 }

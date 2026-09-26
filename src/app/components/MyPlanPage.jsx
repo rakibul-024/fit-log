@@ -44,13 +44,13 @@ export default function MyPlanPage() {
     removeFromSaved,
   } = useWorkoutPlan();
   const currentItems = activeTab === "planned" ? planned : saved;
-  const query = search.trim().toLocaleLowerCase();
+  const query = search.trim().toLowerCase();
   const items = useMemo(() => {
     return currentItems
       .filter((workout) => {
-        const searchable = [workout.name, ...(workout.muscleGroups ?? [])]
+        const searchable = [workout.name, ...workout.muscleGroups]
           .join(" ")
-          .toLocaleLowerCase();
+          .toLowerCase();
         return searchable.includes(query);
       })
       .sort(sortOptions[sortBy]);
@@ -132,11 +132,11 @@ export default function MyPlanPage() {
                 <select
                   value={sortBy}
                   onChange={(event) => setSortBy(event.target.value)}
-                  className="h-9 appearance-none rounded-lg border border-[#242630] bg-[#12141a] py-0 pl-3 pr-8 text-[11px] text-gray-200 outline-none focus:border-[#ccff00]"
+                  className="h-9 appearance-none rounded-lg border border-[#242630] bg-[#12141a] py-0 pl-3 pr-8 text-[11px] text-gray-200 outline-none transition-colors hover:border-[#3b414d] hover:bg-[#181a21] focus:border-[#ccff00] focus:ring-1 focus:ring-[#ccff00]"
                 >
-                  <option value="duration">Duration</option>
-                  <option value="calories">Calories</option>
-                  <option value="rating">Rating</option>
+                  <option className="bg-[#12141a] text-gray-200" value="duration">Duration</option>
+                  <option className="bg-[#12141a] text-gray-200" value="calories">Calories</option>
+                  <option className="bg-[#12141a] text-gray-200" value="rating">Rating</option>
                 </select>
                 <span aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">⌄</span>
               </span>

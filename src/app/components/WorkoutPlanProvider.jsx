@@ -6,9 +6,9 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useState,
   useSyncExternalStore,
 } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const STORAGE_KEY = "fitlog-workout-plan";
 const PLAN_LIMIT = 5;
@@ -93,22 +93,17 @@ export function WorkoutPlanProvider({ children }) {
     getSnapshot,
     getServerSnapshot,
   );
-  const [toast, setToast] = useState("");
 
   useEffect(() => {
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  useEffect(() => {
-    if (!toast) return;
-    const timeout = window.setTimeout(() => setToast(""), 3000);
-    return () => window.clearTimeout(timeout);
-  }, [toast]);
-
   const updateWorkouts = useCallback((update) => {
     const nextWorkouts = update(getSnapshot());
-    if (nextWorkouts === workouts) return;
+    if (nextWorkouts === workouts) {
+      return true;
+    }
 
     workouts = { ...nextWorkouts, isLoaded: true };
     hasReadStorage = true;
@@ -123,60 +118,100 @@ export function WorkoutPlanProvider({ children }) {
           doneIds: workouts.doneIds,
         }),
       );
+      return true;
     } catch (error) {
       console.error("Could not save FitLog workouts.", error);
-      setToast("Your changes could not be saved on this device.");
+      return false;
     }
   }, []);
 
   const addToPlan = useCallback((workout) => {
     const current = getSnapshot();
     if (current.planned.some((item) => item.id === workout.id)) {
-      setToast("This workout is already in today’s plan.");
-    } else if (current.planned.length >= PLAN_LIMIT) {
-      setToast("Your plan is full. Finish a lift before adding another.");
+      toast.info("This workout is already in today’s plan.");
+      return;
+    }
+    if (current.planned.length >= PLAN_LIMIT) {
+      toast.warning("Your plan is full. Finish a lift before adding another.");
+      return;
+    }
+
+    const saved = updateWorkouts((state) => ({
+      ...state,
+      planned: [...state.planned, workout],
+    }));
+    if (saved) {
+      toast.success("Added to today’s plan.");
     } else {
-      updateWorkouts((state) => ({
-        ...state,
-        planned: [...state.planned, workout],
-      }));
-      setToast("Added to today’s plan.");
+      toast.error("Added, but could not save on this device.");
     }
   }, [updateWorkouts]);
 
   const saveForLater = useCallback((workout) => {
-    const alreadySaved = getSnapshot().saved.some((item) => item.id === workout.id);
-    if (!alreadySaved) {
-      updateWorkouts((state) => ({
-        ...state,
-        saved: [...state.saved, workout],
-      }));
+    if (getSnapshot().saved.some((item) => item.id === workout.id)) {
+      toast.info("This workout is already saved.");
+      return;
     }
-    setToast(alreadySaved ? "This workout is already saved." : "Workout saved for later.");
+
+    const saved = updateWorkouts((state) => ({
+      ...state,
+      saved: [...state.saved, workout],
+    }));
+    if (saved) {
+      toast.success("Workout saved for later.");
+    } else {
+      toast.error("Saved, but could not save on this device.");
+    }
   }, [updateWorkouts]);
 
   const markAsDone = useCallback((workoutId) => {
-    updateWorkouts((state) => state.doneIds.includes(workoutId)
-      ? state
-      : { ...state, doneIds: [...state.doneIds, workoutId] });
-    setToast("Workout marked as done.");
+    if (getSnapshot().doneIds.includes(workoutId)) {
+      toast.info("This workout is already marked as done.");
+      return;
+    }
+
+    const saved = updateWorkouts((state) => ({
+      ...state,
+      doneIds: [...state.doneIds, workoutId],
+    }));
+    if (saved) {
+      toast.success("Workout marked as done.");
+    } else {
+      toast.error("Marked done, but could not save on this device.");
+    }
   }, [updateWorkouts]);
 
   const removeFromPlan = useCallback((workoutId) => {
-    updateWorkouts((state) => ({
+    if (!getSnapshot().planned.some((item) => item.id === workoutId)) {
+      return;
+    }
+
+    const saved = updateWorkouts((state) => ({
       ...state,
       planned: state.planned.filter((item) => item.id !== workoutId),
       doneIds: state.doneIds.filter((id) => id !== workoutId),
     }));
-    setToast("Removed from today’s plan.");
+    if (saved) {
+      toast.success("Removed from today’s plan.");
+    } else {
+      toast.error("Removed, but could not save on this device.");
+    }
   }, [updateWorkouts]);
 
   const removeFromSaved = useCallback((workoutId) => {
-    updateWorkouts((state) => ({
+    if (!getSnapshot().saved.some((item) => item.id === workoutId)) {
+      return;
+    }
+
+    const saved = updateWorkouts((state) => ({
       ...state,
       saved: state.saved.filter((item) => item.id !== workoutId),
     }));
-    setToast("Removed from saved workouts.");
+    if (saved) {
+      toast.success("Removed from saved workouts.");
+    } else {
+      toast.error("Removed, but could not save on this device.");
+    }
   }, [updateWorkouts]);
 
   const value = useMemo(() => ({
@@ -189,22 +224,28 @@ export function WorkoutPlanProvider({ children }) {
     markAsDone,
     removeFromPlan,
     removeFromSaved,
-  }), [currentWorkouts, addToPlan, saveForLater, markAsDone, removeFromPlan, removeFromSaved]);
+  }), [
+    currentWorkouts,
+    addToPlan,
+    saveForLater,
+    markAsDone,
+    removeFromPlan,
+    removeFromSaved,
+  ]);
 
   return (
     <WorkoutPlanContext.Provider value={value}>
       {children}
-      <div
-        aria-live="polite"
-        aria-atomic="true"
-        className="pointer-events-none fixed inset-x-4 bottom-6 z-100 flex justify-center"
-      >
-        {toast && (
-          <p className="rounded-lg border border-[#343740] bg-[#17191f] px-4 py-3 text-sm text-white shadow-xl">
-            {toast}
-          </p>
-        )}
-      </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        newestOnTop
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        theme="dark"
+        toastClassName="fitlog-toast"
+      />
     </WorkoutPlanContext.Provider>
   );
 }

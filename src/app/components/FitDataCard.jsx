@@ -23,7 +23,7 @@ const FitDataCard = ({ item }) => {
       <div className="flex flex-1 flex-col justify-between p-4">
         <div>
           <div className="mb-2.5 flex flex-wrap gap-1.5">
-            {item.muscleGroups?.map((group) => (
+            {item.muscleGroups.map((group) => (
               <span
                 key={group}
                 className="rounded-full bg-[#c2fd12] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black"

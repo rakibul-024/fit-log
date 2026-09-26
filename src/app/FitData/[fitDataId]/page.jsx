@@ -1,5 +1,4 @@
-﻿import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import WorkoutActions from "../../components/WorkoutActions";
 import { getWorkouts } from "../../lib/workouts";
@@ -26,13 +25,6 @@ export default async function FitDataDetailsPage({ params }) {
   return (
     <section className="px-4 py-6 text-white sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <div className="container mx-auto max-w-7xl">
-        <Link
-          href="/#library"
-          className="mb-5 inline-flex text-xs font-medium text-gray-400 transition-colors hover:text-[#ccff00]"
-        >
-          ← Back to the library
-        </Link>
-
         <div className="grid gap-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
           <div className="relative aspect-[4/4.6] overflow-hidden rounded-xl border border-[#252833] bg-[#14161d] md:aspect-auto md:min-h-[620px]">
             <Image
@@ -54,7 +46,7 @@ export default async function FitDataDetailsPage({ params }) {
             </p>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {workout.muscleGroups?.map((group) => (
+              {workout.muscleGroups.map((group) => (
                 <span
                   key={group}
                   className="rounded-full bg-[#ccff00] px-3 py-1 text-[10px] font-bold text-black"
@@ -86,7 +78,7 @@ export default async function FitDataDetailsPage({ params }) {
                 Instructions
               </h2>
               <ol className="mt-3 space-y-2">
-                {workout.instructions?.map((instruction, index) => (
+                {workout.instructions.map((instruction, index) => (
                   <li
                     key={`${index}-${instruction}`}
                     className="flex gap-2.5 text-xs leading-5 text-gray-400"

@@ -1,26 +1,27 @@
-﻿# FitLog
+# FitLog
 
-FitLog is a responsive workout library and daily planning companion. Browse lifts, review exercise details, and build a small plan for today.
+**A focused workout library and daily planner.** Find a lift, check its instructions, and keep track of what you plan to do today.
 
-## Technologies
+## Built with
 
-- Next.js 16 App Router
-- React 19
+- Next.js 16 App Router and React 19
 - Tailwind CSS 4 and DaisyUI
-- Lucide icons
-- FitLog workout API
-- Browser localStorage for plan and saved workout data
+- Lucide React icons
+- React Toastify notifications
+- [FitLog Workout API](https://api.abcz.workers.dev/api/fitlog)
 
-## Features
+## What you can do
 
-1. Responsive workout library with exercise cards and workout imagery.
-2. Workout detail pages with equipment, difficulty, training specs, and instructions.
-3. Today's Plan and Saved lists with live totals for exercises, minutes, and calories.
-4. Five workout daily limit, completion tracking, sorting, and search by name or muscle group.
-5. Persistent plan and saved workouts across page reloads.
-6. Toast feedback, loading states, and a custom not-found page.
+1. Browse a responsive library of workouts and view their equipment, stats, and instructions.
+2. Add up to five exercises to today's plan or save workouts for later.
+3. Track completed workouts and see live totals for exercises, minutes, and calories.
+4. Search workouts by name or muscle group, and sort them by duration, calories, or rating.
+5. Keep your plan and saved workouts in the browser across page reloads.
+6. Get clear feedback when an action succeeds or needs attention, with loading and not-found pages.
 
 ## Run locally
+
+Install dependencies and start the development server:
 
 ```bash
 npm install
@@ -29,7 +30,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Build
+## Production build
 
 ```bash
 npm run build
