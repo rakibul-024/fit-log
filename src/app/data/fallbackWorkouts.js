@@ -2,7 +2,8 @@ const fallbackWorkouts = [
   {
     id: 1,
     name: "Barbell Bench Press",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/portrait-anime-character-doing-fitness-exercising_23-2151666664.jpg?w=740",
     muscleGroups: ["Chest", "Arms"],
     equipment: "Barbell, Bench",
     difficulty: "Intermediate",
@@ -23,7 +24,8 @@ const fallbackWorkouts = [
   {
     id: 2,
     name: "Pull-Up",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/3d-cartoon-fitness-man_23-2151691400.jpg?w=740",
     muscleGroups: ["Back", "Arms"],
     equipment: "Pull-up Bar",
     difficulty: "Intermediate",
@@ -44,7 +46,8 @@ const fallbackWorkouts = [
   {
     id: 3,
     name: "Back Squat",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/3d-cartoon-fitness-man_23-2151691401.jpg?w=740",
     muscleGroups: ["Legs", "Core"],
     equipment: "Barbell, Rack",
     difficulty: "Intermediate",
@@ -65,7 +68,8 @@ const fallbackWorkouts = [
   {
     id: 4,
     name: "Overhead Press",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/portrait-anime-character-doing-fitness-exercising_23-2151666703.jpg?w=740",
     muscleGroups: ["Shoulders", "Arms"],
     equipment: "Barbell",
     difficulty: "Intermediate",
@@ -86,7 +90,8 @@ const fallbackWorkouts = [
   {
     id: 5,
     name: "Dumbbell Bicep Curl",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/portrait-anime-character-doing-fitness-exercising_23-2151666702.jpg?w=740",
     muscleGroups: ["Arms"],
     equipment: "Dumbbells",
     difficulty: "Beginner",
@@ -107,7 +112,8 @@ const fallbackWorkouts = [
   {
     id: 6,
     name: "Hollow-Body Plank",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/3d-cartoon-fitness-man_23-2151691489.jpg?w=740",
     muscleGroups: ["Core"],
     equipment: "Bodyweight",
     difficulty: "Beginner",
@@ -128,7 +134,8 @@ const fallbackWorkouts = [
   {
     id: 7,
     name: "Burpee",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/3d-cartoon-business-character_1048-16544.jpg?w=740",
     muscleGroups: ["Full Body"],
     equipment: "Bodyweight",
     difficulty: "Intermediate",
@@ -149,7 +156,8 @@ const fallbackWorkouts = [
   {
     id: 8,
     name: "Conventional Deadlift",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/portrait-anime-character-doing-fitness-exercising_23-2151666704.jpg?w=740",
     muscleGroups: ["Back", "Legs"],
     equipment: "Barbell",
     difficulty: "Advanced",
@@ -170,7 +178,8 @@ const fallbackWorkouts = [
   {
     id: 9,
     name: "Push-Up",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/3d-cartoon-fitness-man_23-2151691429.jpg?w=740",
     muscleGroups: ["Chest", "Arms", "Core"],
     equipment: "Bodyweight",
     difficulty: "Beginner",
@@ -191,7 +200,8 @@ const fallbackWorkouts = [
   {
     id: 10,
     name: "Walking Lunge",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/portrait-anime-character-doing-fitness-exercising_23-2151666701.jpg?w=740",
     muscleGroups: ["Legs"],
     equipment: "Dumbbells (optional)",
     difficulty: "Intermediate",
@@ -212,7 +222,8 @@ const fallbackWorkouts = [
   {
     id: 11,
     name: "Russian Twist",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/3d-cartoon-fitness-man_23-2151691487.jpg?w=740",
     muscleGroups: ["Core", "Obliques"],
     equipment: "Medicine Ball",
     difficulty: "Intermediate",
@@ -233,7 +244,8 @@ const fallbackWorkouts = [
   {
     id: 12,
     name: "Kettlebell Swing",
-    image: "/assets/banner.png",
+    image:
+      "https://img.magnific.com/free-photo/3d-cartoon-fitness-man_23-2151691505.jpg?w=740",
     muscleGroups: ["Full Body", "Shoulders"],
     equipment: "Kettlebell",
     difficulty: "Intermediate",
