@@ -5,7 +5,7 @@ export default function WorkoutLibraryLoading() {
         aria-hidden="true"
         className="size-8 animate-spin rounded-full border-2 border-[#30323b] border-t-[#ccff00]"
       />
-      <p className="mt-4 text-sm">Loading workouts…</p>
+      <p className="mt-4 text-sm">workouts Data Loading...</p>
     </section>
   );
 }

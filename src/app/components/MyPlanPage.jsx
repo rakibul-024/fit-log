@@ -131,7 +131,7 @@ export default function MyPlanPage() {
                 <select
                   value={sortBy}
                   onChange={(event) => setSortBy(event.target.value)}
-                  className="h-9 appearance-none rounded-lg border border-[#242630] bg-[#12141a] py-0 pl-3 pr-8 text-[11px] text-gray-200 outline-none transition-colors hover:border-[#3b414d] hover:bg-[#181a21] focus:border-[#ccff00] focus:ring-1 focus:ring-[#ccff00]"
+                  className="sort-dropdown h-9 appearance-none rounded-lg border border-[#ccff00] bg-[#12141a] py-0 pl-3 pr-8 text-[11px] text-white outline-none transition-colors hover:bg-[#202b0b] hover:text-[#ccff00] focus:ring-1 focus:ring-[#ccff00]"
                 >
                   <option className="bg-[#12141a] text-gray-200" value="duration">Duration</option>
                   <option className="bg-[#12141a] text-gray-200" value="calories">Calories</option>

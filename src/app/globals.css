@@ -29,6 +29,11 @@ html {
   font-stretch: condensed;
 }
 
+.sort-dropdown option:hover {
+  background: #ccff00;
+  color: #0a0a0c;
+}
+
 .fitlog-toast {
   min-height: 3.25rem;
   border: 1px solid #343740;
