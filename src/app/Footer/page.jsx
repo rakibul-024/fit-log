@@ -1,5 +1,7 @@
 import Footer from "../components/Footer";
 
-export default function FooterPage() {
+const FooterPage = () => {
   return <Footer />;
-}
+};
+
+export default FooterPage;

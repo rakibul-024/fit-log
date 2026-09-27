@@ -6,14 +6,14 @@ import { ToastContainer, toast } from "react-toastify";
 const PLAN_LIMIT = 5;
 const WorkoutPlanContext = createContext(null);
 
-export function WorkoutPlanProvider({ children }) {
+export const PlanProvider = ({ children }) => {
   const [plan, setPlan] = useState({
     planned: [],
     saved: [],
     doneIds: [],
   });
 
-  function addToPlan(workout) {
+  const addWorkout = (workout) => {
     if (plan.planned.some((item) => item.id === workout.id)) {
       toast.info("This workout is already in today’s plan.");
       return;
@@ -29,9 +29,9 @@ export function WorkoutPlanProvider({ children }) {
       planned: [...plan.planned, workout],
     });
     toast.success("Added to today’s plan.");
-  }
+  };
 
-  function saveForLater(workout) {
+  const saveWorkout = (workout) => {
     if (plan.saved.some((item) => Number(item.id) === Number(workout.id))) {
       toast.info("This workout is already saved.");
       return;
@@ -42,9 +42,9 @@ export function WorkoutPlanProvider({ children }) {
       saved: [...plan.saved, workout],
     });
     toast.success("Workout saved for later.");
-  }
+  };
 
-  function markAsDone(workoutId) {
+  const finishWorkout = (workoutId) => {
     if (plan.doneIds.includes(workoutId)) {
       toast.info("This workout is already marked as done.");
       return;
@@ -55,9 +55,9 @@ export function WorkoutPlanProvider({ children }) {
       doneIds: [...plan.doneIds, workoutId],
     });
     toast.success("Workout marked as done.");
-  }
+  };
 
-  function removeFromPlan(workoutId) {
+  const removeWorkout = (workoutId) => {
     if (!plan.planned.some((item) => item.id === workoutId)) {
       return;
     }
@@ -68,9 +68,9 @@ export function WorkoutPlanProvider({ children }) {
       doneIds: plan.doneIds.filter((id) => id !== workoutId),
     });
     toast.success("Removed from today’s plan.");
-  }
+  };
 
-  function removeFromSaved(workoutId) {
+  const removeSavedWorkout = (workoutId) => {
     if (!plan.saved.some((item) => item.id === workoutId)) {
       return;
     }
@@ -80,7 +80,7 @@ export function WorkoutPlanProvider({ children }) {
       saved: plan.saved.filter((item) => item.id !== workoutId),
     });
     toast.success("Removed from saved workouts.");
-  }
+  };
 
   return (
     <WorkoutPlanContext.Provider
@@ -88,11 +88,11 @@ export function WorkoutPlanProvider({ children }) {
         planned: plan.planned,
         saved: plan.saved,
         doneIds: plan.doneIds,
-        addToPlan,
-        saveForLater,
-        markAsDone,
-        removeFromPlan,
-        removeFromSaved,
+        addWorkout,
+        saveWorkout,
+        finishWorkout,
+        removeWorkout,
+        removeSavedWorkout,
       }}
     >
       {children}
@@ -108,12 +108,12 @@ export function WorkoutPlanProvider({ children }) {
       />
     </WorkoutPlanContext.Provider>
   );
-}
+};
 
-export function useWorkoutPlan() {
+export const usePlan = () => {
   const context = useContext(WorkoutPlanContext);
   if (!context) {
-    throw new Error("useWorkoutPlan must be used inside WorkoutPlanProvider.");
+    throw new Error("usePlan must be used inside PlanProvider.");
   }
   return context;
-}
+};

@@ -3,11 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useWorkoutPlan } from "./WorkoutPlanProvider";
+import { usePlan } from "./WorkoutPlanProvider";
 
-export default function Navbar() {
+const Navbar = () => {
   const pathname = usePathname();
-  const { planned, saved } = useWorkoutPlan();
+  const { planned, saved } = usePlan();
   const isWorkoutActive = pathname === "/" || pathname.startsWith("/FitData");
   const isPlanActive = pathname === "/my-plan";
 
@@ -134,4 +134,6 @@ export default function Navbar() {
       </div>
     </header>
   );
-}
+};
+
+export default Navbar;

@@ -1,8 +1,8 @@
 import FitDataCard from "../components/FitDataCard";
-import { getWorkouts } from "../data/workouts";
+import { loadWorkouts } from "../data/workouts";
 
-export default async function FitData() {
-  const { workouts, usingFallback } = await getWorkouts();
+const FitData = async () => {
+  const { workouts } = await loadWorkouts();
 
   return (
     <section
@@ -21,11 +21,6 @@ export default async function FitData() {
           <p className="mt-1 text-sm text-gray-400">
             Twelve lifts covering every major muscle group.
           </p>
-          {usingFallback && (
-            <p role="status" className="mt-2 text-xs text-[#ccff00]">
-              Live workout data is unavailable. Showing the built-in workout list.
-            </p>
-          )}
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
@@ -36,4 +31,6 @@ export default async function FitData() {
       </div>
     </section>
   );
-}
+};
+
+export default FitData;

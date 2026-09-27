@@ -3,7 +3,7 @@ import HeroBanner from "./components/HeroBanner";
 import WorkoutLibraryLoading from "./components/WorkoutLibraryLoading";
 import FitData from "./FitData/page";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <HeroBanner />
@@ -12,4 +12,6 @@ export default function Home() {
       </Suspense>
     </>
   );
-}
+};
+
+export default Home;

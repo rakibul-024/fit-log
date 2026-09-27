@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function HeroBanner() {
+const HeroBanner = () => {
   return (
     <section className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-11">
       <div className="container mx-auto max-w-7xl">
@@ -54,4 +54,6 @@ export default function HeroBanner() {
       </div>
     </section>
   );
-}
+};
+
+export default HeroBanner;

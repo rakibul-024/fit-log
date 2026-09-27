@@ -1,30 +1,43 @@
-import fallbackWorkouts from "./fallbackWorkouts";
-
 const WORKOUTS_API_URL = "https://api.abcz.workers.dev/api/fitlog";
-const CACHE_SECONDS = 3600;
 
-export async function getWorkouts() {
-  try {
-    const response = await fetch(WORKOUTS_API_URL, {
-      next: { revalidate: CACHE_SECONDS },
-    });
-
-    if (!response.ok) {
-      console.warn(
-        `Workout API returned ${response.status}; using the built-in workout list.`,
-      );
-      return { workouts: fallbackWorkouts, usingFallback: true };
-    }
-
-    const workouts = await response.json();
-    if (!Array.isArray(workouts) || workouts.length === 0) {
-      console.warn("Workout API returned no usable list; using the built-in workout list.");
-      return { workouts: fallbackWorkouts, usingFallback: true };
-    }
-
-    return { workouts, usingFallback: false };
-  } catch (error) {
-    console.warn("Workout API could not be reached; using the built-in workout list.", error);
-    return { workouts: fallbackWorkouts, usingFallback: true };
+const getWorkoutList = (payload) => {
+  if (Array.isArray(payload)) {
+    return payload;
   }
+
+  if (payload && Array.isArray(payload.workouts)) {
+    return payload.workouts;
+  }
+
+  if (payload && Array.isArray(payload.data)) {
+    return payload.data;
+  }
+
+  if (payload && Array.isArray(payload.items)) {
+    return payload.items;
+  }
+
+  return [];
+};
+
+export const loadWorkouts = async () => {
+  const response = await fetch(WORKOUTS_API_URL, {
+    cache: "no-store",
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Workout API returned ${response.status}`);
+  };
+
+  const payload = await response.json();
+  const workouts = getWorkoutList(payload);
+
+  if (!Array.isArray(workouts) || workouts.length === 0) {
+    throw new Error("Workout API returned no usable list");
+  }
+
+  return { workouts };
 }

@@ -1,6 +1,6 @@
 ﻿import Link from "next/link";
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <section className="flex min-h-[60vh] flex-col items-center justify-center px-4 py-16 text-center text-white">
       <p className="text-xs font-bold tracking-[0.16em] text-[#ccff00]">404</p>
@@ -9,4 +9,6 @@ export default function NotFound() {
       <Link href="/" className="mt-6 inline-flex min-h-10 items-center rounded-full bg-[#ccff00] px-5 text-xs font-bold text-black hover:bg-[#b7e600]">Go to workouts</Link>
     </section>
   );
-}
+};
+
+export default NotFound;

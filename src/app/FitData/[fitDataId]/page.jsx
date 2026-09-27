@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import WorkoutActions from "../../components/WorkoutActions";
-import { getWorkouts } from "../../data/workouts";
+import { loadWorkouts } from "../../data/workouts";
 
-export default async function FitDataDetailsPage({ params }) {
+const FitDataDetailsPage = async ({ params }) => {
   const { fitDataId } = await params;
-  const { workouts, usingFallback } = await getWorkouts();
+  const { workouts } = await loadWorkouts();
   const workout = workouts.find((item) => String(item.id) === String(fitDataId));
 
   if (!workout) {
@@ -44,11 +44,6 @@ export default async function FitDataDetailsPage({ params }) {
             <p className="mt-2 text-sm leading-6 text-gray-400">
               {workout.description}
             </p>
-            {usingFallback && (
-              <p role="status" className="mt-2 text-xs text-[#ccff00]">
-                Live workout data is unavailable. Showing built-in workout details.
-              </p>
-            )}
 
             <div className="mt-4 flex flex-wrap gap-2">
               {workout.muscleGroups.map((group) => (
@@ -103,4 +98,6 @@ export default async function FitDataDetailsPage({ params }) {
       </div>
     </section>
   );
-}
+};
+
+export default FitDataDetailsPage;

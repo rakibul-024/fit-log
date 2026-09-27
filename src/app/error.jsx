@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export default function AppError({ error, reset }) {
+const AppError = ({ error, reset }) => {
   useEffect(() => {
     console.error("FitLog page failed to load.", error);
   }, [error]);
@@ -23,4 +23,6 @@ export default function AppError({ error, reset }) {
       </button>
     </section>
   );
-}
+};
+
+export default AppError;

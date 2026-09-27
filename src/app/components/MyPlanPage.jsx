@@ -13,7 +13,7 @@ import {
   Star,
   X,
 } from "lucide-react";
-import { useWorkoutPlan } from "./WorkoutPlanProvider";
+import { usePlan } from "./WorkoutPlanProvider";
 
 const sortOptions = {
   duration: (a, b) => Number(a.duration) - Number(b.duration),
@@ -21,16 +21,16 @@ const sortOptions = {
   rating: (a, b) => Number(a.rating) - Number(b.rating),
 };
 
-function Stat({ icon: Icon, children, className = "" }) {
+const Stat = ({ icon: Icon, children, className = "" }) => {
   return (
     <span className={`inline-flex items-center gap-1.5 whitespace-nowrap ${className}`}>
       <Icon aria-hidden="true" className="size-3.5 text-[#ccff00]" />
       {children}
     </span>
   );
-}
+};
 
-export default function MyPlanPage() {
+const MyPlanPage = () => {
   const [activeTab, setActiveTab] = useState("planned");
   const [sortBy, setSortBy] = useState("duration");
   const [search, setSearch] = useState("");
@@ -38,10 +38,10 @@ export default function MyPlanPage() {
     planned,
     saved,
     doneIds,
-    markAsDone,
-    removeFromPlan,
-    removeFromSaved,
-  } = useWorkoutPlan();
+    finishWorkout,
+    removeWorkout,
+    removeSavedWorkout,
+  } = usePlan();
   const currentItems = activeTab === "planned" ? planned : saved;
   const query = search.trim().toLowerCase();
   const items = useMemo(() => {
@@ -180,12 +180,12 @@ export default function MyPlanPage() {
                         View Details <ArrowUpRight aria-hidden="true" className="size-3" />
                       </Link>
                       {activeTab === "planned" && (
-                        <button type="button" disabled={isDone} onClick={() => markAsDone(workout.id)} className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-[#ccff00] px-3.5 text-[10px] font-bold text-black transition-colors hover:bg-[#b7e600] disabled:cursor-default disabled:bg-[#252a19] disabled:text-[#ccff00]">
+                        <button type="button" disabled={isDone} onClick={() => finishWorkout(workout.id)} className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-[#ccff00] px-3.5 text-[10px] font-bold text-black transition-colors hover:bg-[#b7e600] disabled:cursor-default disabled:bg-[#252a19] disabled:text-[#ccff00]">
                           {isDone ? <CheckCircle2 aria-hidden="true" className="size-3.5" /> : <Check aria-hidden="true" className="size-3.5" />}
                           {isDone ? "Done" : "Mark as Done"}
                         </button>
                       )}
-                      <button type="button" aria-label={`Remove ${workout.name} from ${activeTab === "planned" ? "today’s plan" : "saved workouts"}`} onClick={() => activeTab === "planned" ? removeFromPlan(workout.id) : removeFromSaved(workout.id)} className="inline-flex size-9 items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-[#20232b] hover:text-white">
+                      <button type="button" aria-label={`Remove ${workout.name} from ${activeTab === "planned" ? "today’s plan" : "saved workouts"}`} onClick={() => activeTab === "planned" ? removeWorkout(workout.id) : removeSavedWorkout(workout.id)} className="inline-flex size-9 items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-[#20232b] hover:text-white">
                         <X aria-hidden="true" className="size-3.5" />
                       </button>
                     </div>
@@ -198,4 +198,6 @@ export default function MyPlanPage() {
       </div>
     </section>
   );
-}
+};
+
+export default MyPlanPage;

@@ -1,5 +1,7 @@
 import MyPlanPage from "../components/MyPlanPage";
 
-export default function MyPlanRoute() {
+const MyPlanRoute = () => {
   return <MyPlanPage />;
-}
+};
+
+export default MyPlanRoute;

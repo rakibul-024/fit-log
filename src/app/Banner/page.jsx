@@ -1,5 +1,7 @@
 import HeroBanner from "../components/HeroBanner";
 
-export default function BannerPage() {
+const BannerPage = () => {
   return <HeroBanner />;
-}
+};
+
+export default BannerPage;
