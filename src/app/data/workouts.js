@@ -1,4 +1,3 @@
-const WORKOUTS_API_URL = "https://api.abcz.workers.dev/api/fitlog";
 
 const getWorkoutList = (payload) => {
   if (Array.isArray(payload)) {
@@ -21,11 +20,8 @@ const getWorkoutList = (payload) => {
 };
 
 export const loadWorkouts = async () => {
-  const response = await fetch(WORKOUTS_API_URL, {
+  const response = await fetch( "https://api.abcz.workers.dev/api/fitlog", {
     cache: "no-store",
-    headers: {
-      Accept: "application/json",
-    },
   });
 
   if (!response.ok) {
